@@ -1,0 +1,158 @@
+/* General Resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+}
+
+body {
+    padding-top: 100px; /* Adjust based on header height to prevent content overlap */
+}
+/* Header Styles */
+.site-header {
+    width: 100%;
+    background: #ffffff;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.site-header h1 {
+    display: inline-block;
+    margin: 0; /* Remove default margin */
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center; /* Center content within the container */
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    height: 50px; /* Adjust as needed */
+    margin-right: 10px; /* Space between logo and title */
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Search Section Styles */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px; /* Adjust based on your header's height to avoid overlap */
+}
+
+.search-box {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to right, #ffffff, #fff);
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 17px 10px 5px 10px;
+    width: 50%;
+}
+
+#search-input {
+    width: 250px;
+    padding: 15px;
+    border-radius: 30px 0 0 30px;
+    outline: none;
+    font-size: 16px;
+    border: 2px solid #009688; /* example border */
+    margin: 0;
+    width: 100%;
+    font-size: 18px;
+    border-right: none;
+}
+
+#search-button {
+    padding: 10px 20px;
+    border: 2px solid #009688;;
+    border-radius: 0 30px 30px 0;
+    background-color: #009688;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-left: none;
+}
+
+
+
+.autocomplete-items {
+    position: absolute;
+    top: 100%; /* Align it right below the search box */
+    left: 0;
+    right: 0;
+    padding: 10px;
+    /* Style to match the search box, with adjustments as needed */
+    border: 0px solid #cccccc;
+    border-top: none; /* remove top border to connect to input box */
+    z-index: 99; /* ensures the list is on top of other page elements */
+    /* match width with the search input */
+    width: 100%; /* Adjusted for padding */
+    max-height: 250px; /* limit the height and make it scrollable */
+    overflow-y: auto; /* add scroll to the autocomplete box */
+    background-color: white;
+    box-shadow: 0px 4px 5px -2px rgba(0,0,0,0.2);
+    border-radius: 0 0 30px 30px;
+    margin-top: -5px; /* to overlap the search bar bottom border */
+  }
+  
+/* Style for individual suggestion items */
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #cccccc;
+  transition: background-color 0.3s, color 0.3s;
+   /* Separate individual suggestions */
+}
+  
+  /* Hover state for suggestion items */
+.autocomplete-items div:hover {
+    background-color: #f0f0f0;
+    color: white;
+}
+
+
+.autocomplete-listitem {
+    padding: 10px;
+}
+
+.autocomplete-listitem:hover { 
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+  
+
+
+#search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Results Section Styles */
+#results-section {
+    margin-top: 20px; /* Space from search section */
+}
+
+/* Ensure the script operates correctly for dynamic content */
