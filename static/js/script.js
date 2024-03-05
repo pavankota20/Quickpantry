@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-
     const inputField = document.getElementById("search-input");
+    const searchButton = document.getElementById("search-button"); // Assuming your search button has this ID
     let debounceTimeout;
 
     inputField.addEventListener("input", function() {
@@ -14,10 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(data => {
                     if (data.length > 0) {
                         displaySuggestions(data);
-                        
                     } else {
                         displayNoSuggestions();
-                        
                     }
                 })
                 .catch(error => {
@@ -26,11 +24,50 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             } else {
                 clearSuggestions();
-                
             }
         }, 300); // Debounce time of 300 milliseconds
-    }); 
+    });
+
+    // Add this part for the search button functionality
+    searchButton.addEventListener('click', function() {
+        const inputProduct = inputField.value.trim();
+        const resultsSection = document.getElementById('results-section');
+
+        resultsSection.innerHTML = '<p>Loading...</p>';
+
+        if (inputProduct.length > 0) {
+            fetch(`/find_similar`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ product_name: inputProduct })
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultsSection.innerHTML = ''; // Clear the loading message or previous results
+                
+                if (data.length === 0) {
+                    resultsSection.innerHTML = '<p>No similar products found.</p>';
+                    return;
+                }
+                displayResults(data)
+                /** data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.textContent = `${item['product_name']}`;
+                    resultsSection.appendChild(div);
+                }); **/
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultsSection.innerHTML = '<p>Error fetching similar products. Please try again later.</p>';
+            });
+        } else {
+            resultsSection.innerHTML = '<p>Please enter a product name to search for similar products.</p>';
+        }
+    });
 });
+
 
 function displaySuggestions(suggestions) {
     const autocompleteList = document.getElementById('autocomplete-list');
@@ -69,4 +106,43 @@ function displayFetchError() {
     const autocompleteList = document.getElementById('autocomplete-list');
     autocompleteList.textContent = 'Error fetching suggestions';
 }
+
+
+function displayResults(data) {
+    const resultsSection = document.getElementById('results-section');
+    resultsSection.innerHTML = ''; // Clear previous results
+
+    data.forEach(item => {
+        // Create card container
+        const card = document.createElement('div');
+        card.className = 'product-card';
+
+        // Create card content container
+        const content = document.createElement('div');
+        content.className = 'product-card-content';
+
+        // Product name
+        const name = document.createElement('div');
+        name.className = 'product-name';
+        name.textContent = item['product_name']; // Adjust according to your data structure
+
+        // Add to cart button
+        const addToCartBtn = document.createElement('button');
+        addToCartBtn.className = 'add-to-cart-btn';
+        addToCartBtn.textContent = 'Add to Cart';
+        // Add any event listener to addToCartBtn if needed
+        
+        addToCartBtn.addEventListener('click', function() {
+            console.log(`Add ${item['product_name']} to cart`); // Implement your add to cart logic
+        });
+
+        // Assemble the card
+        content.appendChild(name);
+        content.appendChild(addToCartBtn);
+        card.appendChild(content);
+        resultsSection.appendChild(card);
+    });
+}
+
+
 

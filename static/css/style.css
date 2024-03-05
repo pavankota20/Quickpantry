@@ -137,6 +137,7 @@ h1 {
 
 .autocomplete-listitem {
     padding: 10px;
+    list-style-type: none;
 }
 
 .autocomplete-listitem:hover { 
@@ -153,6 +154,116 @@ h1 {
 /* Results Section Styles */
 #results-section {
     margin-top: 20px; /* Space from search section */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Adjust spacing between cards */
+}
+
+.product-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px;
+    width: 300px; /* Adjust card width as necessary */
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+.product-card-content {
+    padding: 20px;
+}
+
+.product-name {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.add-to-cart-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Existing styles remain the same */
+
+/* Responsive Styles */
+@media only screen and (max-width: 1200px) {
+    .container, .search-box {
+        width: 80%; /* Slightly increase width for smaller desktops */
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        padding-top: 80px; /* Smaller padding for smaller headers */
+    }
+
+    .site-header {
+        padding: 15px 0; /* Reduce padding */
+    }
+
+    .logo {
+        height: 40px; /* Smaller logo */
+    }
+
+    .container, .search-box {
+        width: 90%; /* Increase width for tablets and below */
+    }
+
+    #search-input, #search-button {
+        font-size: 14px; /* Smaller font size */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    body {
+        padding-top: 60px; /* Even smaller padding for mobile */
+    }
+
+    .site-header h1 {
+        font-size: 18px; /* Smaller text for the title */
+    }
+
+    .search-box {
+        flex-direction: column; /* Stack input and button */
+        padding: 10px; /* Reduce padding */
+    }
+
+    #search-input {
+        border-radius: 30px; /* Adjust border-radius */
+        margin-bottom: 10px; /* Add margin between input and button */
+    }
+
+    #search-button {
+        border-radius: 30px; /* Adjust border-radius */
+    }
+
+    .autocomplete-items {
+        border-radius: 0 0 20px 20px; /* Adjust for smaller screens */
+    }
+}
+
+/* Additional responsive considerations */
+@media (prefers-reduced-motion: reduce) {
+    /* Reduce animations for users who prefer reduced motion */
+    .autocomplete-items div, #search-button {
+        transition: none;
+    }
 }
 
 /* Ensure the script operates correctly for dynamic content */

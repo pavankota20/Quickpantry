@@ -6,7 +6,7 @@ client = OpenAI(
 )
 
 
-user_input="i am looking to make a biryani veggie"
+user_input="i am looking to bake a chocolate cookie"
 content = ''' Craft a list of essential ingredients necessary for preparing a chosen recipe. Please format your response by listing each component distinctly. The list should encompass all foundational items necessary for the recipe, avoiding any superfluous commentary or symbols. Your enumeration should follow this format:
 
 Ingredient 1
