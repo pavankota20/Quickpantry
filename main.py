@@ -29,7 +29,7 @@ def find_similar():
     data = request.get_json()
     input_product_name = data['product_name']
     # Use the class method to find similar products
-    similar_products_df = product_search.find_similar_products_cosine(input_product_name, top_n=10)
+    similar_products_df = product_search.find_similar_products_cosine(input_product_name, top_n=20)
     logging.info(similar_products_df)
     x = jsonify(similar_products_df.to_dict('records'))
     logging.info(x)

@@ -6,13 +6,14 @@ client = OpenAI(
 )
 
 
-user_input="i am looking to bake a chocolate cookie"
+user_input="i am looking to bake a cookie"
 content = ''' Craft a list of essential ingredients necessary for preparing a chosen recipe. Please format your response by listing each component distinctly. The list should encompass all foundational items necessary for the recipe, avoiding any superfluous commentary or symbols. Your enumeration should follow this format:
 
 Ingredient 1
 Ingredient 2
 Ingredient 3
-Ensure the list is comprehensive, covering the variety of ingredients that blend together to create the full experience of the chosen dish.'''
+
+Ensure the list is comprehensive without any bullet points, covering the variety of ingredients that blend together to create the full experience of the chosen dish.'''
 
 messages =  [  
 {'role':'system', 

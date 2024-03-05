@@ -42,7 +42,7 @@ class ProductSearch:
     
    
 
-    def find_similar_products_cosine(self, input_product_name, top_n=10):
+    def find_similar_products_cosine(self, input_product_name, top_n=20):
         # Vectorize the input product name using the fitted vectorizer
         input_vec = self.vectorizer.transform([input_product_name])
         # Compute cosine similarity between input product and all products
