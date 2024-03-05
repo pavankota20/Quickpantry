@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const inputField = document.getElementById("search-input");
-    const searchButton = document.getElementById("search-button"); // Assuming your search button has this ID
+    const searchButton = document.getElementById("search-button");
+    const scrollLeftBtn = document.getElementById('scroll-left');
+    const scrollRightBtn = document.getElementById('scroll-right');
     let debounceTimeout;
 
     inputField.addEventListener("input", function() {
@@ -14,16 +16,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(data => {
                     if (data.length > 0) {
                         displaySuggestions(data);
+                        
                     } else {
                         displayNoSuggestions();
+                        
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
                     displayFetchError();
+                    
                 });
             } else {
                 clearSuggestions();
+                
             }
         }, 300); // Debounce time of 300 milliseconds
     });
@@ -45,27 +51,41 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .then(response => response.json())
             .then(data => {
+                clearSuggestions();
                 resultsSection.innerHTML = ''; // Clear the loading message or previous results
                 
                 if (data.length === 0) {
                     resultsSection.innerHTML = '<p>No similar products found.</p>';
+                    scrollLeftBtn.style.display = 'none';
+                    scrollRightBtn.style.display = 'none';
                     return;
                 }
                 displayResults(data)
-                /** data.forEach(item => {
-                    const div = document.createElement('div');
-                    div.textContent = `${item['product_name']}`;
-                    resultsSection.appendChild(div);
-                }); **/
+                scrollLeftBtn.style.display = 'inline-block';
+                scrollRightBtn.style.display = 'inline-block';
             })
             .catch(error => {
                 console.error('Error:', error);
                 resultsSection.innerHTML = '<p>Error fetching similar products. Please try again later.</p>';
+                scrollLeftBtn.style.display = 'none';
+                scrollRightBtn.style.display = 'none';
             });
         } else {
             resultsSection.innerHTML = '<p>Please enter a product name to search for similar products.</p>';
+            scrollLeftBtn.style.display = 'none';
+            scrollRightBtn.style.display = 'none';
         }
+        
     });
+    
+    document.getElementById('scroll-left').addEventListener('click', () => {
+        document.getElementById('results-section').scrollBy({ left: -300, behavior: 'smooth' });
+    });
+
+    document.getElementById('scroll-right').addEventListener('click', () => {
+        document.getElementById('results-section').scrollBy({ left: 300, behavior: 'smooth' });
+    });
+
 });
 
 

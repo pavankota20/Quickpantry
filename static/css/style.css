@@ -63,7 +63,7 @@ h1 {
 }
 
 .search-box {
-    position: absolute;
+    position: relative;
     display: flex;
     justify-content: center;
     background: linear-gradient(to right, #ffffff, #fff);
@@ -153,11 +153,66 @@ h1 {
 
 /* Results Section Styles */
 #results-section {
-    margin-top: 20px; /* Space from search section */
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around; /* Adjust spacing between cards */
+    flex-wrap: nowrap;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+    margin: 20px 0;
+    margin-left: 90px;
+    padding-bottom: 20px; /* Gives some space at the bottom */
 }
+
+.scroll-button{
+    float: left;
+}
+
+
+
+.middle {
+    width: 90%;
+}
+
+.results-container:after {
+  content: "";
+  display: table;
+  clear: both;
+  position: relative;
+}
+
+#scroll-left, #scroll-right {
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    top: 35%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: none;
+}
+
+#scroll-left {
+    border: 0;
+    width: 2%;
+    margin-left: 2%;
+    margin-top: 4.5%;
+    style="display;
+    inline-block;
+}
+
+#scroll-right {
+    border: 0;
+    width: 2%;
+    margin-right: 2%;
+    margin-top: 4.5%;
+    margin-left: 1%;
+    style="display;
+    inline-block;
+}
+
+.product-card {
+    flex: 0 0 auto; 
+    margin-right: 20px; 
+}
+
 
 .product-card {
     background-color: #ffffff;
@@ -165,7 +220,7 @@ h1 {
     border-radius: 10px;
     overflow: hidden;
     margin: 10px;
-    width: 300px; /* Adjust card width as necessary */
+    width: 10%; 
     transition: transform 0.3s ease;
 }
 
@@ -266,4 +321,16 @@ h1 {
     }
 }
 
-/* Ensure the script operates correctly for dynamic content */
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+    #scroll-left, #scroll-right {
+        font-size: 12px; /* Smaller font size for smaller devices */
+        /* Optionally adjust the position for small screens if needed */
+    }
+    /* Further responsive adjustments can be added here */
+}
+
