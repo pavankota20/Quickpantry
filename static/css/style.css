@@ -154,7 +154,7 @@ h1 {
 /* Results Section Styles */
 #results-section {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     overflow-x: auto; /* Enables horizontal scrolling */
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
     margin: 20px 0;

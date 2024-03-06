@@ -39,8 +39,6 @@ class ProductSearch:
         similar_products = [(result[0], result[1]) for result in results]
         similar_products_df = pd.DataFrame(similar_products, columns=['Product Name', 'Similarity Score'])
         return similar_products_df
-    
-   
 
     def find_similar_products_cosine(self, input_product_name, top_n=20):
         # Vectorize the input product name using the fitted vectorizer
