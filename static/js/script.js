@@ -182,6 +182,8 @@ function getRecipeItems(inputProduct) {
 
 function getSimilarProducts(inputProduct) {
     const resultsSection = document.getElementById('results-section');
+    const resultsContainer = document.getElementById('results-container');
+    resultsContainer.innerHTML = '';
     x = 0
     inputProduct.forEach(item => {
         if (item.length > 0) {
@@ -223,7 +225,7 @@ function displayResultsContainers(item, products, x) {
     const heading = document.createElement('div');
     heading.className = 'heading';
     heading.textContent = item;
-    heading.style.textAlign = "left";
+    //heading.style.textAlign = "left";
     
     const content = document.createElement('div');
     content.className = 'results-container-' + x.toString();
@@ -261,19 +263,23 @@ function displayResultsContainers(item, products, x) {
         </svg>
     `;
     
-    /* document.getElementById(scrollLeftBtn.id).addEventListener('click', () => {
-        document.getElementById(resultsSection.id).scrollBy({ left: -300, behavior: 'smooth' });
-    });
-
-    document.getElementById(scrollRightBtn.id ).addEventListener('click', () => {
-        document.getElementById(resultsSection.id).scrollBy({ left: 300, behavior: 'smooth' });
-    }); */
+    scrollLeftBtn.style.display = 'inline-block';
+    scrollRightBtn.style.display = 'inline-block';
 
     content.appendChild(heading);
     content.appendChild(scrollLeftBtn);
     content.appendChild(resultsSection);
     content.appendChild(scrollRightBtn);
     resultsContainer.appendChild(content);
+    
+    document.getElementById(scrollLeftBtn.id).addEventListener('click', () => {
+        document.getElementById(resultsSection.id).scrollBy({ left: -300, behavior: 'smooth' });
+    });
+
+    document.getElementById(scrollRightBtn.id ).addEventListener('click', () => {
+        document.getElementById(resultsSection.id).scrollBy({ left: 300, behavior: 'smooth' });
+    });
+    
     displayResults(products, resultsSection.id);
 }
 
