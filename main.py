@@ -16,8 +16,12 @@ recipe_assistant = RecipeAssistant(organization_id, api_key)
 intent_classifier = IntentClassifier(organization_id, api_key)
 logging.basicConfig(level = logging.INFO)
 
-@app.route('/')
-def home():
+@app.route('/', methods=['GET'])
+def login():
+    return render_template('login.html')
+
+@app.route('/main', methods=['POST'])
+def main():
     return render_template('index.html')
 
 @app.route('/autocomplete', methods=['GET'])
