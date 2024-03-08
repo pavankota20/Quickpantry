@@ -1,8 +1,14 @@
+var userIdElement = document.getElementById('userId');
+var userId = userIdElement.getAttribute('data-user-id');
+
 document.addEventListener("DOMContentLoaded", function() {
+    
     const inputField = document.getElementById("search-input");
     const searchButton = document.getElementById("search-button");
     let debounceTimeout;
 
+    initialRecommendations()
+    
     inputField.addEventListener("input", function() {
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(() => {
@@ -49,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 manageClassification(data, inputProduct);
             })
             .catch(error => {
@@ -60,14 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
     });
-    
-    /* document.getElementById('scroll-left').addEventListener('click', () => {
-        document.getElementById('results-section').scrollBy({ left: -300, behavior: 'smooth' });
-    });
-
-    document.getElementById('scroll-right').addEventListener('click', () => {
-        document.getElementById('results-section').scrollBy({ left: 300, behavior: 'smooth' });
-    }); */
 
 });
 
@@ -287,22 +286,17 @@ function displayResultsContainers(item, products, x) {
     displayResults(products, resultsSection.id);
 }
 
-/*
-function displayResultsContainers(inputProducts) {
-    const container = document.getElementById('results-container');
-    container.innerHTML = ''; // Clear previous contents
-    x = 0
-    inputProducts.forEach(item => {
-        const resultsContainer = createResultsContainer(item, x);
-        container.appendChild(resultsContainer);
-        x = x + 1
-    });
-}
-*/
 
-/* 
-scrollLeftBtn.style.display = 'inline-block';
-scrollRightBtn.style.display = 'inline-block';
-scrollLeftBtn.style.display = 'none';
-scrollRightBtn.style.display = 'none';
-*/
+function initialRecommendations() {
+    fetch(`/initialRecommendations`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }, 
+        body: JSON.stringify({ logged_in_user: userId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayResultsContainers('Recommendations', data, 0)
+    })
+}

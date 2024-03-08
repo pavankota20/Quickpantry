@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>QuickPantry</title>
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style_page.css">
 </head>
 <body>
     <header class="site-header">
@@ -17,6 +17,8 @@
     </header>
 
     <!-- Enhanced search section for better aesthetics -->
+    <div id="userId" data-user-id="{{ logged_in_user }}" style="display: none;"></div>
+
     <div class="search-container">
         <div class="search-box">
             <input type="text" id="search-input" placeholder="What are you looking for?">

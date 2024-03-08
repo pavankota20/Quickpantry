@@ -3,14 +3,18 @@ import pandas as pd
 from findsimilar import ProductSearch
 from OpenAI import RecipeAssistant
 from detect_questions import IntentClassifier
+from prediction import ProductRecommender
 import logging
 
 
 app = Flask(__name__)
-
+logged_in_user = 0
 products_df = pd.read_csv("products.csv")
 organization_id = 'org-60tiN0w9MS38ybOTDKLBQJt3'
 api_key = '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'
+model_path = "models/alsmodel"
+products_csv_path = "products.csv"
+recommender = ProductRecommender(model_path, products_csv_path)
 product_search = ProductSearch(products_df)
 recipe_assistant = RecipeAssistant(organization_id, api_key)
 intent_classifier = IntentClassifier(organization_id, api_key)
@@ -22,7 +26,8 @@ def login():
 
 @app.route('/main', methods=['POST'])
 def main():
-    return render_template('index.html')
+    logged_in_user = request.form['email']
+    return render_template('index.html', logged_in_user = logged_in_user)
 
 @app.route('/autocomplete', methods=['GET'])
 def autocomplete():
@@ -32,6 +37,15 @@ def autocomplete():
         return jsonify(matching_products)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/initialRecommendations', methods=['POST'])
+def initialRecommendations():
+    data = request.get_json()
+    logged_in_user = data['logged_in_user']
+    recommendations_df = recommender.get_recommendations(int(logged_in_user), 10);
+    logging.info(recommendations_df.head())
+    x = jsonify(recommendations_df.to_dict('records'))
+    return x
 
 @app.route('/intent_classification', methods=['POST'])
 def intent_classification():
