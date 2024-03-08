@@ -138,6 +138,8 @@ h1 {
 .autocomplete-listitem {
     padding: 10px;
     list-style-type: none;
+    
+    
 }
 
 .autocomplete-listitem:hover { 
@@ -333,4 +335,3 @@ h1 {
     }
     /* Further responsive adjustments can be added here */
 }
-

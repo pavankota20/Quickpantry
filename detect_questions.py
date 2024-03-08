@@ -22,21 +22,17 @@ class IntentClassifier:
 
         Examples for clarity:
 
-        Input: 'Best price for olive oil' → Your response: 'Shopping'
+        Input: 'Best price for olive oil' → Your response: 'Ingredient'
         Input: 'How to make spaghetti carbonara' → Your response: 'Cooking'
         Input: 'Ingredients needed for a pumpkin pie' → Your response: 'Cooking'
-        Input: 'Where can I find fresh basil leaves?' → Your response: 'Shopping'
+        Input: 'Where can I find fresh basil leaves?' → Your response: 'Ingredient'
         Input: 'Substitute for baking soda in cakes' → Your response: 'Cooking'
         Input: 'Quantity of rice for biryani for 4 people' → Your response: 'Cooking'
-        Input: 'Looking for a good brand of vanilla extract' → Your response: 'Shopping'
+        Input: 'Looking for a good brand of vanilla extract' → Your response: 'Ingredient'
         Input: 'Steps to marinate chicken for grilling' → Your response: 'Cooking'
-        Input: 'Is there a difference between white and brown eggs?' → Your response: 'Shopping'
+        Input: 'Is there a difference between white and brown eggs?' → Your response: 'Ingredient'
         Input: 'How long to boil eggs for hard-boiled eggs' → Your response: 'Cooking'
-        Input: 'Best price for olive oil' → Your response: 'Shopping'
-        Input: 'How to make spaghetti carbonara' → Your response: 'Cooking'
         Input: 'Tomatoes' → Your response: 'Ingredient'
-        Input: 'Where can I find fresh basil leaves?' → Your response: 'Shopping'
-        Input: 'Substitute for baking soda in cakes' → Your response: 'Cooking'
 
 
         Your analysis should carefully consider the user's intention based on the content and context of their input, distinguishing between shopping for ingredients or items and the intention to use them in cooking or meal preparation." 

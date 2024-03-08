@@ -38,6 +38,6 @@ if __name__ == "__main__":
 
     recipe_assistant = RecipeAssistant(organization=organization_id, api_key=api_key)
 
-    user_input = "ic"
+    user_input = "raatri tamatapappu chedam ani planning"
     ingredient_list = recipe_assistant.get_ingredient_list(user_input)
     print(ingredient_list)
