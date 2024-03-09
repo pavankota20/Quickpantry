@@ -113,39 +113,16 @@ function displayFetchError() {
 function displayResults(data, resultsSectionId) {
     const resultsSection = document.getElementById(resultsSectionId);
     resultsSection.innerHTML = ''; // Clear previous results
-    console.log(data)
-    data.forEach(item => {
-        // Create card container
+    
+    data.forEach(item => {     
         const card = document.createElement('div');
-        card.className = 'product-card';
-
-        // Create card content container
-        const content = document.createElement('div');
-        content.className = 'product-card-content';
-
-        // Product name
-        const name = document.createElement('div');
-        name.className = 'product-name';
-        name.textContent = item['product_name']; // Adjust according to your data structure
-
-        // Add to cart button
-        const addToCartBtn = document.createElement('button');
-        addToCartBtn.className = 'add-to-cart-btn';
-        //addToCartBtn.textContent = 'Add to Cart';
-        addToCartBtn.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" height="20" width="22.5" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                <path fill="#009688" d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM252 160c0 11 9 20 20 20h44v44c0 11 9 20 20 20s20-9 20-20V180h44c11 0 20-9 20-20s-9-20-20-20H356V96c0-11-9-20-20-20s-20 9-20 20v44H272c-11 0-20 9-20 20z"/>
-            </svg>`;
-        // Add any event listener to addToCartBtn if needed
+        card.className =  'flex-none w-48 bg-white rounded-lg shadow-md p-4';
         
-        addToCartBtn.addEventListener('click', function() {
-            console.log(`Add ${item['product_name']} to cart`); // Implement your add to cart logic
-        });
-
-        // Assemble the card
-        content.appendChild(name);
-        content.appendChild(addToCartBtn);
-        card.appendChild(content);
+        const cardContent = document.createElement('div');
+        cardContent.className = 'text-center text-sm';
+        cardContent.textContent = item['product_name']; 
+        
+        card.appendChild(cardContent);
         resultsSection.appendChild(card);
     });
 }
@@ -225,55 +202,48 @@ function getSimilarProducts(inputProduct) {
 function displayResultsContainers(item, products, x) {
     const resultsContainer = document.getElementById('results-container');
     
+    const body = document.createElement('div');
+    body.className = 'results-container-' + x.toString();
+    
     const heading = document.createElement('div');
-    heading.className = 'heading';
-    heading.textContent = item;
-    //heading.style.textAlign = "left";
+    heading.className = 'flex items-center justify-between';
+    //var classes = ['flex', 'items-center', 'justify-between'];
+    //heading.classList.add(classes);
+    
+    const heading_1 = document.createElement('div');
+    heading_1.className = 'text-xl font-semibold';
+    heading_1.textContent = item;
     
     const content = document.createElement('div');
-    content.className = 'results-container-' + x.toString();
-    content.style.float = 'none';
-    content.style.width = '100%';
+    content.className = 'flex items-center';
     
     const scrollLeftBtn = document.createElement('button');
+    scrollLeftBtn.className = 'text-2xl text-gray-600 mr-4';
+    
+    const leftIcon = document.createElement('i');
     scrollLeftBtn.id = 'scroll-left-' + x.toString();
-    scrollLeftBtn.setAttribute('aria-label', 'Scroll left');
-    scrollLeftBtn.classList.add('scroll-button', 'left');
-    scrollLeftBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 512 512">
-            <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"/>
-        </svg>
-    `;
+    leftIcon.className = 'fas fa-chevron-left';
+    
+    const scrollRightBtn = document.createElement('button');
+    scrollRightBtn.id = 'scroll-right-' + x.toString();
+    scrollRightBtn.className = 'text-2xl text-gray-600';
+    
+    const rightIcon = document.createElement('i');
+    rightIcon.className = 'fas fa-chevron-right';
+    
+    scrollLeftBtn.appendChild(leftIcon);
+    scrollRightBtn.appendChild(rightIcon);
+    content.appendChild(scrollLeftBtn);
+    content.appendChild(scrollRightBtn);
+    heading.append(heading_1);
+    heading.append(content);
+    body.appendChild(heading);
     
     const resultsSection = document.createElement('div');
     resultsSection.id = 'results-section-' + x.toString();
-    resultsSection.classList.add('scroll-button', 'middle');
-    resultsSection.style.display = 'flex';
-    resultsSection.style.flexWrap = 'nowrap';
-    resultsSection.style.overflowX = 'auto'; // Enables horizontal scrolling
-    resultsSection.style.WebkitOverflowScrolling = 'touch'; // Smooth scrolling on touch devices
-    resultsSection.style.margin = '20px 0';
-    resultsSection.style.marginLeft = '90px';
-    resultsSection.style.paddingBottom = '20px';
-
-    const scrollRightBtn = document.createElement('button');
-    scrollRightBtn.id = 'scroll-right-' + x.toString();
-    scrollRightBtn.setAttribute('aria-label', 'Scroll right');
-    scrollRightBtn.classList.add('scroll-button', 'right');
-    scrollRightBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 512 512">
-            <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/>
-        </svg>
-    `;
-    
-    scrollLeftBtn.style.display = 'inline-block';
-    scrollRightBtn.style.display = 'inline-block';
-
-    content.appendChild(heading);
-    content.appendChild(scrollLeftBtn);
-    content.appendChild(resultsSection);
-    content.appendChild(scrollRightBtn);
-    resultsContainer.appendChild(content);
+    resultsSection.className = 'flex overflow-x-auto py-6 space-x-4';
+    body.appendChild(resultsSection);
+    resultsContainer.append(body);
     
     document.getElementById(scrollLeftBtn.id).addEventListener('click', () => {
         document.getElementById(resultsSection.id).scrollBy({ left: -300, behavior: 'smooth' });

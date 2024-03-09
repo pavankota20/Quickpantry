@@ -1,50 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>QuickPantry</title>
-    <link rel="stylesheet" type="text/css" href="static/css/style_page.css">
-</head>
-<body>
-    <header class="site-header">
-        <div class="container">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB3ElEQVR4nO2XP0sDMRiHf4ro6izqB3ARHNpBFEG4okJvUsF20cniHxTEReUG0bwngpSaHH4AHfwAbq7iJDgJjlp111EhkquDhTrYJpcG7oEsBy/5PXnfBA5ISUlJaR9KhRmUClWsLUqEOxKCJDj7AmeP4LSNIOhCW7NcfEapKOO1vlgTqF8XcFxAQlAObcvywlQsocIf7TYW4HQOp4gORv/ohJ0VseH/CUjZAUFP1oOL+EG5aq4LnJWthxckcRpONicgwjHr4QW7j6ehKYKgE4K9WB6fIlqCs4q98FTFZdDdmsApG7cosIWWUWPE6dXC6Lzj5KQXWhCMWzj9Y2gjYhMJC3zijAb1CcSvUaKnfw7tJClQCUfcFeB0rT98kgLR4bS7Apwe4vvmrIBgS2bCJyLA3lAu97gpwKkKfuiZC99IwDmE6wKcvdcJlKkfTiHotn5u2RX4/gCcIaJV4y+RUdSfEac7dwUUlbDPqEQiqE4ItgJONxD04Z7AD0Ozs91ZLx9mvfxrJue/ZHJ5Ut9guFYbatNszpe/l/pmulYb6vTUxvObe3Juc68WxPPfTNdqQ7VebawCzG3UQmQ8v2q6VhuNx8Bnpmu1oS6dClK7hP+/xJkma1NSUlLQFnwDX7MckiLnGesAAAAASUVORK5CYII=" alt="QuickPantry Logo" class="logo">
-            <h1>QuickPantry</h1>
-        </div>
-    </header>
-
-    <!-- Enhanced search section for better aesthetics -->
-    <div id="userId" data-user-id="{{ logged_in_user }}" style="display: none;"></div>
-
-    <div class="search-container">
-        <div class="search-box">
-            <input type="text" id="search-input" placeholder="What are you looking for?">
-            <div id="autocomplete-list" class="autocomplete-items">
-                <!-- Suggestion items will be dynamically inserted here -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="static/css/style_page.css">
+    </head>
+    <body class="bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center border-b-2 border-gray-200 py-6">
+                <div class="text-3xl font-bold text-green-600">
+                    QuickPantry
+                </div>
+                <div class="flex items-center bg-white rounded-full px-4 py-2 shadow-md">
+                    <input class="outline-none text-sm flex-1" id="search-input" type="text" placeholder="What are you looking for?"/>
+                    <div id="autocomplete-list" class="autocomplete-items">
+                        <!-- Suggestion items will be dynamically inserted here -->
+                    </div>
+                    <button class="text-white bg-green-500 rounded-full px-4 py-2 ml-2 focus:outline-none" id="search-button">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
             </div>
-            <button id="search-button">🔍 Search</button>
+            <div id="userId" data-user-id="{{ logged_in_user }}" style="display: none;"></div>
+            <div class="text-xl font-semibold" id="results-section">
+            </div>
+            <div class="py-8">
+                <div id="results-container">
+                    
+                </div>
+            </div>
+            
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="static/js/script.js"></script>
         </div>
-    </div>
-    <div id="results-section" class="scroll-button middle"></div>
-   
-    <div class="results-container" id="results-container">
-       <!-- 
-        <button id="scroll-left" aria-label="Scroll left" class="scroll-button left">
-        <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 512 512">
-        <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"/></svg>
-        </button>
-        <div id="results-section" class="scroll-button middle"></div>
-        <button id="scroll-right" aria-label="Scroll right" class="scroll-button right">
-        <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 512 512">
-        <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"/></svg>
-        </button> -->
-      
-    </div>
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="static/js/script.js"></script>
-</body>
+    </body>
 </html>
