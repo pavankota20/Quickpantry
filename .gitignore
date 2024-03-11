@@ -1,0 +1,6 @@
+
+
+# Custom project-specific exclusions #
+#####################################
+# Add any patterns specific to your project here
+static/Images

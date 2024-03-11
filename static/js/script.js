@@ -109,6 +109,11 @@ function displayFetchError() {
     autocompleteList.textContent = 'Error fetching suggestions';
 }
 
+/* <img alt="Placeholder image of Raw Whole Milk" 
+class="mx-auto mb-4" 
+height="100" 
+src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-60tiN0w9MS38ybOTDKLBQJt3/user-sieztYGAsWOLak4TfWfCkZS4/img-vtkMaeqEYJzxcwI5shzRRGAN.png?st=2024-03-09T00%3A25%3A17Z&amp;se=2024-03-09T02%3A25%3A17Z&amp;sp=r&amp;sv=2021-08-06&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-03-08T18%3A32%3A10Z&amp;ske=2024-03-09T18%3A32%3A10Z&amp;sks=b&amp;skv=2021-08-06&amp;sig=aXEeQYXpt3Vaz2jTmBZTeXs%2BHe180IL39WOQVFioneE%3D" width="100"/>
+*/
 
 function displayResults(data, resultsSectionId) {
     const resultsSection = document.getElementById(resultsSectionId);
@@ -117,15 +122,62 @@ function displayResults(data, resultsSectionId) {
     data.forEach(item => {     
         const card = document.createElement('div');
         card.className =  'flex-none w-48 bg-white rounded-lg shadow-md p-4';
+        card.style.height = '250px';
+        
+        const image = document.createElement('img');
+        image.className = 'mx-auto mb-4';
+        //const path = 'static/Images/' + item['product_id'].toString() + '/000001.jpg';
+        const path = ImageExist(item);
+        image.src = path;
+        image.style.height = '100px';
         
         const cardContent = document.createElement('div');
         cardContent.className = 'text-center text-sm';
         cardContent.textContent = item['product_name']; 
+        cardContent.style.height = '50px';
         
+        const addButton = document.createElement('button');
+        addButton.className = 'w-full bg-green-500 text-white rounded-full mt-4 py-2 flex items-center justify-center focus:outline-none';
+        addButton.style.width = '50%';
+        addButton.style.float = 'right';
+        
+        const addIcon = document.createElement('i');
+        addIcon.className = 'fas fa-plus mr-2';
+        const text = document.createTextNode(' Add');
+        addButton.appendChild(addIcon);
+        addButton.appendChild(text);
+        
+        card.appendChild(image);
         card.appendChild(cardContent);
+        card.appendChild(addButton);
         resultsSection.appendChild(card);
     });
 }
+
+function ImageExist(item) 
+{
+    const imageFormats = ['.png', '.jpg'];
+    let imagePath = 'static/Images/' + item['product_id'].toString() + '/000001';
+    let imageFound = false;
+    
+    for (let format of imageFormats) {
+        let pathWithFormat = imagePath + format;
+        var img = new Image();
+        img.src = pathWithFormat;
+        if(img.height != '0px') {
+            imagePath = pathWithFormat;
+            imageFound = true;
+            break;
+        }
+    }
+    if(imageFound) {
+        return imagePath;
+    }
+    else {
+        console.log('not found')
+    }
+}
+
 
 function manageClassification(data, inputProduct) {
     classification = data['intent'];
