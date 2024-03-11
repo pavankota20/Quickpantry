@@ -144,18 +144,33 @@ function displayResults(data, resultsSectionId) {
             
             const addButton = document.createElement('button');
             addButton.className = 'w-full bg-green-500 text-white rounded-full mt-4 py-2 flex items-center justify-center focus:outline-none';
-            addButton.style.width = '50%';
+            addButton.style.width = '25%';
             addButton.style.float = 'right';
             
             const addIcon = document.createElement('i');
             addIcon.className = 'fas fa-plus mr-2';
-            const text = document.createTextNode(' Add');
+            addIcon.style.marginRight = '0px';
             addButton.appendChild(addIcon);
-            addButton.appendChild(text);
+            
+            const viewButton = document.createElement('button');
+            viewButton.className = 'w-full bg-green-500 text-white rounded-full mt-4 py-2 flex items-center justify-center focus:outline-none';
+            viewButton.style.width = '25%';
+            viewButton.style.float = 'right';
+            viewButton.style.marginRight = '7%'
+            
+            const viewIcon = document.createElement('i');
+            viewIcon.className = 'fas fa-eye mr-2';
+            viewIcon.style.marginRight = '0px';
+            viewButton.appendChild(viewIcon);
+            
+            viewButton.addEventListener('click', function() {
+                console.log('Button clicked for product', item['product_id']);
+            });
             
             card.appendChild(image);
             card.appendChild(cardContent);
             card.appendChild(addButton);
+            card.appendChild(viewButton);
             resultsSection.appendChild(card);
         })
         .catch(error => {
@@ -163,6 +178,10 @@ function displayResults(data, resultsSectionId) {
         });
         
     });
+}
+
+function viewProduct() {
+    
 }
 
 
@@ -246,8 +265,6 @@ function displayResultsContainers(item, products, x) {
     
     const heading = document.createElement('div');
     heading.className = 'flex items-center justify-between';
-    //var classes = ['flex', 'items-center', 'justify-between'];
-    //heading.classList.add(classes);
     
     const heading_1 = document.createElement('div');
     heading_1.className = 'text-xl font-semibold';

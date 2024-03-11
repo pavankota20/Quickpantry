@@ -263,79 +263,85 @@ ol {
 /* Existing styles remain the same */
 
 /* Responsive Styles */
+/* General Resets and Styles */
+
+/* Responsive Styles */
 @media only screen and (max-width: 1200px) {
     .container, .search-box {
-        width: 80%; /* Slightly increase width for smaller desktops */
+        width: 80%;
     }
+    /* Additional adjustments for smaller desktops */
 }
 
 @media only screen and (max-width: 768px) {
     body {
-        padding-top: 80px; /* Smaller padding for smaller headers */
+        padding-top: 80px;
     }
 
     .site-header {
-        padding: 15px 0; /* Reduce padding */
+        padding: 15px 0;
     }
 
     .logo {
-        height: 40px; /* Smaller logo */
+        height: 40px;
+        width: auto; /* Maintain aspect ratio */
     }
 
     .container, .search-box {
-        width: 90%; /* Increase width for tablets and below */
+        width: 90%;
     }
 
     #search-input, #search-button {
-        font-size: 14px; /* Smaller font size */
+        font-size: 14px;
+    }
+
+    .product-card {
+        width: 45%; /* Adjust card width for better fit */
+    }
+
+    #scroll-left, #scroll-right {
+        display: none; /* Hide scroll buttons on smaller screens */
+    }
+
+    /* Stack search box elements for smaller screens */
+    .search-box {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    #search-input {
+        border-radius: 20px;
+        margin-bottom: 10px; /* Space between input and button */
+    }
+
+    #search-button {
+        border-radius: 20px;
+    }
+
+    .autocomplete-items {
+        border-radius: 0 0 20px 20px;
     }
 }
 
 @media only screen and (max-width: 480px) {
     body {
-        padding-top: 60px; /* Even smaller padding for mobile */
+        padding-top: 60px;
     }
 
     .site-header h1 {
-        font-size: 18px; /* Smaller text for the title */
+        font-size: 18px;
     }
 
-    .search-box {
-        flex-direction: column; /* Stack input and button */
-        padding: 10px; /* Reduce padding */
-    }
-
-    #search-input {
-        border-radius: 30px; /* Adjust border-radius */
-        margin-bottom: 10px; /* Add margin between input and button */
-    }
-
-    #search-button {
-        border-radius: 30px; /* Adjust border-radius */
-    }
-
-    .autocomplete-items {
-        border-radius: 0 0 20px 20px; /* Adjust for smaller screens */
+    .product-card {
+        width: 100%; /* Full width cards for very small screens */
     }
 }
 
 /* Additional responsive considerations */
 @media (prefers-reduced-motion: reduce) {
-    /* Reduce animations for users who prefer reduced motion */
-    .autocomplete-items div, #search-button {
-        transition: none;
+    /* Reduce or eliminate animations for users who prefer reduced motion */
+    .product-card:hover {
+        transform: none; /* Disable hover effect */
     }
 }
 
-
-
-
-
-
-@media only screen and (max-width: 768px) {
-    #scroll-left, #scroll-right {
-        font-size: 12px; /* Smaller font size for smaller devices */
-        /* Optionally adjust the position for small screens if needed */
-    }
-    /* Further responsive adjustments can be added here */
-}
