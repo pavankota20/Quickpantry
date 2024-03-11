@@ -30,9 +30,10 @@
                 <button class="text-white bg-green-500 rounded-full px-4 py-2 ml-2 focus:outline-none">
                     &nbsp <i class="fas fa-shopping-cart"></i> Cart &nbsp
                 </button>
-                <button class="text-white bg-red-500 rounded-full px-4 py-2 ml-2 focus:outline-none" >
+                <a href = "/logout"
+                <button class="text-white bg-red-500 rounded-full px-4 py-2 ml-2 focus:outline-none" onclick="logoutUser()">
                   <i class="fas fa-sign-out-alt"></i>Logout
-                 </button>
+                 </button> </a>
             </div>
             <div id="userId" data-user-id="{{ logged_in_user }}" style="display: none;"></div>
             <div class="text-xl font-semibold" id="results-section">

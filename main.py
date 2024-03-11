@@ -5,6 +5,8 @@ from OpenAI import RecipeAssistant
 from detect_questions import IntentClassifier
 from prediction import ProductRecommender
 import logging
+import os
+from PIL import Image
 
 
 app = Flask(__name__)
@@ -72,6 +74,23 @@ def find_similar():
     similar_products_df = product_search.find_similar_products_cosine(input_product_name, top_n=20)
     x = jsonify(similar_products_df.to_dict('records'))
     return x
+
+@app.route('/find_image_formats', methods=['GET'])
+def find_image_formats():
+    product_id = request.args.get('term')
+    directory = 'static/Images/' + str(product_id) + '/';
+    for entry in os.listdir(directory):
+        path = os.path.join(directory, entry)
+        if os.path.isfile(path):
+            try:
+                with Image.open(path) as img:
+                    return jsonify(img.format)
+            except IOError:
+                return jsonify('Not found')
+
+@app.route('/logout')
+def logout():
+    return render_template('login.html')
 
 
 if __name__ == '__main__':

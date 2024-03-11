@@ -5,7 +5,7 @@ Created on Mon Mar  4 19:54:53 2024
 
 @author: pavankumarkotapally
 """
-
+import numpy as np
 import pandas as pd
 from fuzzywuzzy import process
 from rapidfuzz import process, fuzz
@@ -40,13 +40,18 @@ class ProductSearch:
         similar_products_df = pd.DataFrame(similar_products, columns=['Product Name', 'Similarity Score'])
         return similar_products_df
 
-    def find_similar_products_cosine(self, input_product_name, top_n=20):
-        # Vectorize the input product name using the fitted vectorizer
+    def find_similar_products_cosine(self, input_product_name, top_n=20, similarity_threshold=0.5):
+   
         input_vec = self.vectorizer.transform([input_product_name])
-        # Compute cosine similarity between input product and all products
+        
         cos_similarities = cosine_similarity(input_vec, self.tfidf_matrix).flatten()
-        # Get the top N indices of products with the highest cosine similarity scores
-        top_indices = cos_similarities.argsort()[-top_n:][::-1]
-        # Select the top N similar products
-        similar_products = self.dataframe.iloc[top_indices]
+    
+        eligible_indices = np.where(cos_similarities >= similarity_threshold)[0]
+        
+        filtered_scores = cos_similarities[eligible_indices]
+        
+        sorted_filtered_indices = eligible_indices[filtered_scores.argsort()][-top_n:][::-1]
+        
+        
+        similar_products = self.dataframe.iloc[sorted_filtered_indices]
         return similar_products

@@ -45,9 +45,11 @@ body {
 }
 
 .logo {
-    height: 50px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
     margin-right: 10px; /* Space between logo and title */
+    width: 100px
 }
+
 
 h1 {
     margin: 0;
@@ -147,7 +149,9 @@ h1 {
     cursor: pointer;
 }
   
-
+ol {
+    text-align: justify;
+}
 
 #search-button:hover {
     background-color: #0056b3;

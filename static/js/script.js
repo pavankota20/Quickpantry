@@ -120,62 +120,49 @@ function displayResults(data, resultsSectionId) {
     resultsSection.innerHTML = ''; // Clear previous results
     
     data.forEach(item => {     
-        const card = document.createElement('div');
-        card.className =  'flex-none w-48 bg-white rounded-lg shadow-md p-4';
-        card.style.height = '250px';
+        const imageFormats = ['.png', '.jpg'];
+        fetch(`/find_image_formats?term=${encodeURIComponent(item['product_id'])}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data == 'JPEG') {
+                data = 'jpg'
+            }
+            const card = document.createElement('div');
+            card.className =  'flex-none w-48 bg-white rounded-lg shadow-md p-4';
+            card.style.height = '250px';
+            
+            const image = document.createElement('img');
+            image.className = 'mx-auto mb-4';
+            //const path = 'static/Images/' + item['product_id'].toString() + '/000001.jpg';
+            image.src = 'static/Images/' + item['product_id'].toString() + '/000001.' + data.toLowerCase();
+            image.style.height = '100px';
+            
+            const cardContent = document.createElement('div');
+            cardContent.className = 'text-center text-sm';
+            cardContent.textContent = item['product_name']; 
+            cardContent.style.height = '50px';
+            
+            const addButton = document.createElement('button');
+            addButton.className = 'w-full bg-green-500 text-white rounded-full mt-4 py-2 flex items-center justify-center focus:outline-none';
+            addButton.style.width = '50%';
+            addButton.style.float = 'right';
+            
+            const addIcon = document.createElement('i');
+            addIcon.className = 'fas fa-plus mr-2';
+            const text = document.createTextNode(' Add');
+            addButton.appendChild(addIcon);
+            addButton.appendChild(text);
+            
+            card.appendChild(image);
+            card.appendChild(cardContent);
+            card.appendChild(addButton);
+            resultsSection.appendChild(card);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
         
-        const image = document.createElement('img');
-        image.className = 'mx-auto mb-4';
-        //const path = 'static/Images/' + item['product_id'].toString() + '/000001.jpg';
-        const path = ImageExist(item);
-        image.src = path;
-        image.style.height = '100px';
-        
-        const cardContent = document.createElement('div');
-        cardContent.className = 'text-center text-sm';
-        cardContent.textContent = item['product_name']; 
-        cardContent.style.height = '50px';
-        
-        const addButton = document.createElement('button');
-        addButton.className = 'w-full bg-green-500 text-white rounded-full mt-4 py-2 flex items-center justify-center focus:outline-none';
-        addButton.style.width = '50%';
-        addButton.style.float = 'right';
-        
-        const addIcon = document.createElement('i');
-        addIcon.className = 'fas fa-plus mr-2';
-        const text = document.createTextNode(' Add');
-        addButton.appendChild(addIcon);
-        addButton.appendChild(text);
-        
-        card.appendChild(image);
-        card.appendChild(cardContent);
-        card.appendChild(addButton);
-        resultsSection.appendChild(card);
     });
-}
-
-function ImageExist(item) 
-{
-    const imageFormats = ['.png', '.jpg'];
-    let imagePath = 'static/Images/' + item['product_id'].toString() + '/000001';
-    let imageFound = false;
-    
-    for (let format of imageFormats) {
-        let pathWithFormat = imagePath + format;
-        var img = new Image();
-        img.src = pathWithFormat;
-        if(img.height != '0px') {
-            imagePath = pathWithFormat;
-            imageFound = true;
-            break;
-        }
-    }
-    if(imageFound) {
-        return imagePath;
-    }
-    else {
-        console.log('not found')
-    }
 }
 
 
@@ -322,3 +309,7 @@ function initialRecommendations() {
         displayResultsContainers('Recommendations', data, 0)
     })
 }
+
+function logoutUser() {
+            window.location.href = 'templates/login.html';
+        }
