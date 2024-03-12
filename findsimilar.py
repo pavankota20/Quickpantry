@@ -8,7 +8,7 @@ Created on Mon Mar  4 19:54:53 2024
 import numpy as np
 import pandas as pd
 from fuzzywuzzy import process
-from rapidfuzz import process, fuzz
+from rapidfuzz import  fuzz
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
