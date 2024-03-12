@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 manageClassification(data, inputProduct);
             })
             .catch(error => {
@@ -79,15 +78,17 @@ function displaySuggestions(suggestions) {
     clearSuggestions(); // Clears the list before displaying new suggestions
 
     const list = document.createElement('ul');
+    list.className = 'text-gray-700';
     list.setAttribute('role', 'listbox');
     autocompleteList.appendChild(list);
 
     suggestions.slice(0, 5).forEach(suggestion => {
         const item = document.createElement('li');
         item.setAttribute('role', 'option');
-        item.setAttribute('class', 'autocomplete-listitem');
+        item.className = 'px-4 py-2 hover:bg-gray-100';
         item.textContent = suggestion;
         item.addEventListener('click', function() {
+            console.log('inside even\t listener');
             document.getElementById('search-input').value = suggestion;
             clearSuggestions();
         });

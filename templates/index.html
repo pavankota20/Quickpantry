@@ -17,21 +17,24 @@
                 <div class="text-3xl font-bold text-green-600">
                     QUICKPANTRY
                 </div>
-                <div class="flex items-center bg-white rounded-full px-4 py-2" style="margin-left: 20%; width: 50%">
-                    <input class="outline-none text-sm flex-1" id="search-input" type="text" placeholder="What are you looking for?"/>
-                    <button class="text-white bg-green-500 rounded-full px-4 py-2 ml-2 focus:outline-none" id="search-button">
-                        <i class="fas fa-search"></i> Search
-                    </button>
+                <div class="relative dropdown" style="width: 60%">
+                    <div class="flex items-center bg-white rounded-full px-4 py-2" style="margin-left: 20%; width: 50%">
+                        <input class="outline-none text-sm flex-1" id="search-input" type="text" placeholder="What are you looking for?"/>
+                        <button class="text-white bg-green-500 rounded-full px-4 py-2 ml-2 focus:outline-none" id="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div id="autocomplete-list" class="autocomplete-items dropdown-menu absolute right-0 w-56 mt-1 bg-white shadow-lg rounded-md z-10" style="margin-right: 30%;width: 50%;">
+                        <!-- Suggestion items will be dynamically inserted here -->
+                    </div>
                 </div>
-                <div id="autocomplete-list" class="autocomplete-items">
-                    <!-- Suggestion items will be dynamically inserted here -->
-                </div>
-                <button class="text-white bg-green-500 rounded-full px-4 py-2 ml-2 focus:outline-none">
-                    &nbsp <i class="fas fa-shopping-cart"></i> Cart &nbsp
+                
+                <button class="text-white bg-green-500 rounded-full px-4 py-2 ml-2 focus:outline-none" style="margin-left: 20%">
+                     <i class="fas fa-shopping-cart"></i> 
                 </button>
                 <a href="/logout">
                     <button class="text-white bg-red-500 rounded-full px-4 py-2 ml-2 focus:outline-none" onclick="logoutUser()">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                        <i class="fas fa-sign-out-alt"></i> 
                     </button>
                 </a>
             </div>
