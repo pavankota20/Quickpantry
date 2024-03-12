@@ -4,6 +4,7 @@ from findsimilar import ProductSearch
 from OpenAI import RecipeAssistant
 from detect_questions import IntentClassifier
 from prediction import ProductRecommender
+from product_based import ItemRecommendation
 import logging
 import os
 from PIL import Image
@@ -16,6 +17,7 @@ organization_id = 'org-60tiN0w9MS38ybOTDKLBQJt3'
 api_key = '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'
 model_path = "models/alsmodel"
 products_csv_path = "products.csv"
+itemRecommender = ItemRecommendation(model_path, products_csv_path)
 recommender = ProductRecommender(model_path, products_csv_path)
 product_search = ProductSearch(products_df)
 recipe_assistant = RecipeAssistant(organization_id, api_key)
@@ -87,6 +89,18 @@ def find_image_formats():
                     return jsonify(img.format)
             except IOError:
                 return jsonify('Not found')
+            
+@app.route('/get_product_recommendations', methods=['POST'])
+def get_product_recommendations():
+    data = request.get_json()
+    target_item_id = data['product_id'];
+    itemRecommender.prepare_data()
+    itemRecommender.calculate_similarities(target_item_id)
+    recommendations = itemRecommender.get_recommendations()
+    logging.info(recommendations.head())
+    x = jsonify(recommendations.to_dict('records'))
+    return x
+
 
 @app.route('/logout')
 def logout():
