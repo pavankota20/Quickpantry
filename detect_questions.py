@@ -55,14 +55,3 @@ class IntentClassifier:
                 total += chunk.choices[0].delta.content
 
         return total
-
-# Example usage:
-if __name__ == "__main__":
-    organization_id = 'org-60tiN0w9MS38ybOTDKLBQJt3'
-    api_key = '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'
-
-    classifier = IntentClassifier(organization=organization_id, api_key=api_key)
-
-    user_input = input("type here: ")
-    intent = classifier.classify_intent(user_input)
-    print(intent)

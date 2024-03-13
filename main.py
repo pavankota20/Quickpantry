@@ -16,7 +16,6 @@ logged_in_user = 0
 products_df = pd.read_csv("products.csv")
 organization_id = os.getenv('OPEN_AI_ORG_ID')
 api_key = os.getenv('OPEN_AI_API_KEY')
-print(api_key)
 model_path = "models/alsmodel"
 products_csv_path = "products.csv"
 itemRecommender = ItemRecommendation(model_path, products_csv_path)

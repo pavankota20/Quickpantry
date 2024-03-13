@@ -31,13 +31,3 @@ class RecipeAssistant:
 
         return total
 
-# Example usage:
-if __name__ == "__main__":
-    organization_id = 'org-60tiN0w9MS38ybOTDKLBQJt3'
-    api_key = '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'
-
-    recipe_assistant = RecipeAssistant(organization=organization_id, api_key=api_key)
-
-    user_input = "raatri tamatapappu chedam ani planning"
-    ingredient_list = recipe_assistant.get_ingredient_list(user_input)
-    print(ingredient_list)
