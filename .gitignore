@@ -4,3 +4,4 @@
 #####################################
 # Add any patterns specific to your project here
 static/Images
+.env

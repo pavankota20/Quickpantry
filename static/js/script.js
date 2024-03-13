@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 clearSuggestions();
                 
             }
-        }, 300); // Debounce time of 300 milliseconds
+        }, 300);
     });
 
     // Add this part for the search button functionality
