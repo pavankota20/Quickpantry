@@ -18,6 +18,9 @@ QuickPantry revolutionizes the online grocery shopping experience by leveraging 
 - **Recommendation Engine**: Alternating Least Square(ALS) powered by PySpark and integrated via Apache Spark for scalability
 - **Language Understanding**: OpenAI's GPT for interpreting natural language queries and providing relevant product suggestions
 
+## Dataset
+https://www.kaggle.com/competitions/instacart-market-basket-analysis
+
 ## Getting Started
 
 1. **Prerequisites**: Ensure you have Python and Flask installed on your system.
